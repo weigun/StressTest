@@ -20,9 +20,10 @@ class UserBehavior(TaskSet):
         初始化函数，只执行一次，目前用来登录
         :return:
         '''
-        r = self._post(config.Api.login,{"username": random_user(), "verifyCode": "1111"},self._Token)
+        r = self._post(config.Api.login,{"username": random_user(), "verifyCode": "1111","loginType":"0"},self._Token)
         if r:
             ret = r.json()
+            assert ret['body'] != None
             self._Token = ret['body']['token']
 
 
