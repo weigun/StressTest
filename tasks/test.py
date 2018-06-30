@@ -2,7 +2,7 @@
 from locust import HttpLocust, task,TaskSet
 import os
 import sys
-sys.path.append(os.path.dirname(os.getcwd()))
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 import config
 from behavior.behavior import UserBehavior
