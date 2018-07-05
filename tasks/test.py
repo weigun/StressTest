@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from locust import HttpLocust, task,TaskSet
+from locust import task,TaskSet
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 import config
-from behavior.behavior import UserBehavior
 from common.util import is_ok
+from behavior.client import Client
 
+@Client.action
 class tt(TaskSet):
 
     @task(5)
@@ -33,9 +34,6 @@ class tt(TaskSet):
     def _stop(self):
         print('stop')
 
+# Client.task_set = tt
 
-class ApiUser(HttpLocust):
-    task_set = tt
-    min_wait = 2000
-    max_wait = 3000
 

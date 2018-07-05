@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from locust import HttpLocust, TaskSet, task
+from locust import TaskSet, task
 # import os
 # import sys
 # sys.path.append(os.getcwd())
@@ -49,3 +49,6 @@ class UserBehavior(TaskSet):
     def _stop(self):
         pass
         # print('stop call')
+
+
+

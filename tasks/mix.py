@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-from locust import HttpLocust, task,TaskSet
+from locust import task,TaskSet
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 import config
 from common.util import foreach,load_modules,Weight
+from behavior.client import Client
 
 
 
@@ -28,11 +29,11 @@ class TaskWeight(Weight):
     Info = 3
 
 
-
+@Client.action
 class Mix(TaskSet):
     tasks = TaskWeight()(mods)
 
-class ApiUser(HttpLocust):
-    task_set = Mix
-    min_wait = 3000
-    max_wait = 5000
+# TODO 将Client.task_set  设计成一个装饰器
+# Client.task_set = Mix
+Client.min_wait = 3000
+Client.max_wait = 5000
