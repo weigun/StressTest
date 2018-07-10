@@ -23,8 +23,8 @@ class UserBehavior(TaskSet):
         r = self._post(config.Api.login,{"username": random_user(), "verifyCode": "1111","loginType":"0"},self._Token)
         if r:
             ret = r.json()
-            assert ret['body'] != None
-            self._Token = ret['body']['token']
+            assert ret['data'] != None
+            self._Token = ret['data']['token']
 
 
     def _get(self,api,token = '',timeout = config.TIME_OUT):
