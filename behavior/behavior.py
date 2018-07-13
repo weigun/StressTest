@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from  __future__ import print_function
 from locust import TaskSet, task
 # import os
 # import sys
@@ -31,6 +32,8 @@ class UserBehavior(TaskSet):
         with self.client.get(api,headers = header_maker(token=token or self._Token),timeout = timeout,catch_response=True) as resp:
             if resp.status_code != 200:
                 resp.failure(api + " failed,status_code is " + str(resp.status_code))
+                if resp.status_code != 401:
+                    print(resp.text)
                 return
             return resp
 

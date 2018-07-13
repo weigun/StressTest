@@ -26,7 +26,7 @@ class TaskWeight(Weight):
     任务权重类
     '''
     Signin = 2
-    Info = 3
+    Info = 10
 
 
 @Client.action
