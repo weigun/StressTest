@@ -26,14 +26,17 @@ class UserBehavior(TaskSet):
             ret = r.json()
             assert ret['data'] != None
             self._Token = ret['data']['token']
+        else:
+            print("resp is empty:" + r)
+
 
 
     def _get(self,api,token = '',timeout = config.TIME_OUT):
+        print("2323")
         with self.client.get(api,headers = header_maker(token=token or self._Token),timeout = timeout,catch_response=True) as resp:
             if resp.status_code != 200:
                 resp.failure(api + " failed,status_code is " + str(resp.status_code))
-                if resp.status_code != 401:
-                    print(resp)
+                print(resp.text + "----->" + token)
                 return
             return resp
 
