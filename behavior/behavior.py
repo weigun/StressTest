@@ -33,7 +33,7 @@ class UserBehavior(TaskSet):
             if resp.status_code != 200:
                 resp.failure(api + " failed,status_code is " + str(resp.status_code))
                 if resp.status_code != 401:
-                    print(resp.text)
+                    print(resp)
                 return
             return resp
 
