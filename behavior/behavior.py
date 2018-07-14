@@ -16,31 +16,40 @@ class UserBehavior(TaskSet):
     必须和文件名同名，并且首字母要大写
     """
     _Token = ''
+    # Miss_User = 0
     def on_start(self):
         '''
         初始化函数，只执行一次，目前用来登录
         :return:
         '''
-        r = self._post(config.Api.login,{"username": random_user(), "verifyCode": "1111","loginType":"0"},self._Token)
+        r = self._post(config.Api.login,{"username": random_user(), "verifyCode": "1111","loginType":"0"},self._Token,start_flag = True)
         if r:
             ret = r.json()
             assert ret['data'] != None
             self._Token = ret['data']['token']
         else:
-            print("resp is empty:" + r)
+            # retry
+            # UserBehavior.Miss_User += 1
+            # print("login failed,total miss:{}".format(UserBehavior.Miss_User))
+            self.on_start()
 
 
 
-    def _get(self,api,token = '',timeout = config.TIME_OUT):
-        print("2323")
+    def _get(self,api,token = '',timeout = config.TIME_OUT,start_flag = False):
+        # token为空时，跳过这个测试，避免影响数据
+        if not start_flag and not self._Token:
+            return
         with self.client.get(api,headers = header_maker(token=token or self._Token),timeout = timeout,catch_response=True) as resp:
             if resp.status_code != 200:
                 resp.failure(api + " failed,status_code is " + str(resp.status_code))
-                print(resp.text + "----->" + token)
+                # print(resp.text + "----->" + token)
                 return
             return resp
 
-    def _post(self,api,payload_dict,token = '',timeout = config.TIME_OUT):
+    def _post(self,api,payload_dict,token = '',timeout = config.TIME_OUT,start_flag = False):
+        # token为空时，跳过这个测试，避免影响数据
+        if not start_flag and not self._Token:
+            return
         payload = payload_maker(payload_dict)
         with self.client.post(api , payload , headers = header_maker(token=token or self._Token), timeout = timeout,catch_response=True) as resp:
             if resp.status_code != 200:
