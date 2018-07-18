@@ -28,31 +28,36 @@ class UserBehavior(TaskSet):
             assert ret['data'] != None
             self._Token = ret['data']['token']
         else:
+            self.on_start()
             # retry
             # UserBehavior.Miss_User += 1
             # print("login failed,total miss:{}".format(UserBehavior.Miss_User))
-            self.on_start()
+            # self.on_start()
 
 
 
-    def _get(self,api,token = '',timeout = config.TIME_OUT,start_flag = False):
+    def _get(self,api,payload = None,token = '',timeout = config.TIME_OUT,start_flag = False):
         # token为空时，跳过这个测试，避免影响数据
         if not start_flag and not self._Token:
             return
-        with self.client.get(api,headers = header_maker(token=token or self._Token),timeout = timeout,catch_response=True) as resp:
+        with self.client.get(api,params = payload,headers = header_maker(token=token or self._Token),timeout = timeout,catch_response=True) as resp:
             if resp.status_code != 200:
                 resp.failure(api + " failed,status_code is " + str(resp.status_code))
                 # print(resp.text + "----->" + token)
                 return
             return resp
 
-    def _post(self,api,payload_dict,token = '',timeout = config.TIME_OUT,start_flag = False):
+    def _post(self,api,payload_dict = None,token = '',timeout = config.TIME_OUT,start_flag = False):
         # token为空时，跳过这个测试，避免影响数据
         if not start_flag and not self._Token:
             return
-        payload = payload_maker(payload_dict)
+        if payload_dict:
+            payload = payload_maker(payload_dict)
+        else:
+            payload = ""
         with self.client.post(api , payload , headers = header_maker(token=token or self._Token), timeout = timeout,catch_response=True) as resp:
             if resp.status_code != 200:
+                # print(payload,header_maker(token=token or self._Token))
                 resp.failure(api + " failed,status_code is " + str(resp.status_code))
                 return
             return resp

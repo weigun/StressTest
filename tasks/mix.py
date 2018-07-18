@@ -25,8 +25,11 @@ class TaskWeight(Weight):
     '''
     任务权重类
     '''
-    Signin = 2
-    Info = 10
+    Signin = 100
+    Info = 100
+    Map = 100
+    Findred = 100
+    Getred = 100
 
 
 @Client.action

@@ -7,3 +7,6 @@ class Api(object):
     login = "/api/users/login"
     user_info="/api/users/info"
     signin = "/api/users/sign/signIn"
+    map = "/api/RedEnvelope/updateUserMap"
+    find_redbag = "/api/RedEnvelope/findReds"
+    get_redbag = "/api/redUser/getRed"

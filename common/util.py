@@ -6,12 +6,12 @@ import os
 import sys
 import glob
 
-def random_user():
+def random_user(min = 0,max = 99999999999):
     '''
     随机用户
     :return:
     '''
-    return str(random.randint(0,99999999999))
+    return str(random.randint(min,max))
 
 
 def tojson(d):
