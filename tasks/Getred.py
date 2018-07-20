@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 import config
 from behavior.behavior import UserBehavior
-from common.util import random_user
+from common.util import get_random
 from behavior.client import Client
 
 # 类命名规则
@@ -16,9 +16,5 @@ class Getred(UserBehavior):
 
     @task(10)
     def get(self):
-        payload = {"redId":random_user(50,55)}
+        payload = {"redId":get_random(50, 55)}
         r = self._get(config.Api.get_redbag,payload)
-        # print(r.text)
-
-# Client.task_set = Signin
-

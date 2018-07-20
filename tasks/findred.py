@@ -17,7 +17,4 @@ class Findred(UserBehavior):
     @task(10)
     def find(self):
         r = self._post(config.Api.find_redbag,"")
-        # print(r.text)
-
-# Client.task_set = Signin
 

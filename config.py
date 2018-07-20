@@ -10,3 +10,4 @@ class Api(object):
     map = "/api/RedEnvelope/updateUserMap"
     find_redbag = "/api/RedEnvelope/findReds"
     get_redbag = "/api/redUser/getRed"
+    test=  "/api/sys/testJson"

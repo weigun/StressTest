@@ -11,28 +11,23 @@ from behavior.client import Client
 @Client.action
 class tt(TaskSet):
 
-    @task(5)
-    def user_info(self):
-        print(666666)
-        # r = self._get(config.Api.user_info)
-        # is_ok(r)
-        # header=header_maker(token=self._Token)
-        # r = self.client.get(config.Api.user_info,headers = header,timeout = config.TIME_OUT)
-        # ret =  r.json()
-        # print(ret   )
-        # print(ret['body']['username'])
-        # assert r.status_code == 200
-        # assert ret['body']['username'] != ''
+    def on_start(self):
+        # Override
+        pass
 
-    @task()
-    def stop(self):
-        self._stop()
-        # if self.in_mix:
-        #     self.interrupt()
-        # print('info')
+    @task(100)
+    def test_json(self):
+        r = self._get(config.Api.test)
 
-    def _stop(self):
-        print('stop')
+    # @task()
+    # def stop(self):
+    #     self._stop()
+    #     # if self.in_mix:
+    #     #     self.interrupt()
+    #     # print('info')
+    #
+    # def _stop(self):
+    #     print('stop')
 
 # Client.task_set = tt
 

@@ -6,7 +6,7 @@ import os
 import sys
 import glob
 
-def random_user(min = 0,max = 99999999999):
+def get_random(min = 0, max = 99999999999):
     '''
     随机用户
     :return:
@@ -80,7 +80,6 @@ def load_modules(except_file = []):
         if os.path.basename(file) not in except_file and '__init__.py' not in file:
             mod = importlib.import_module('.'.join(['tasks', name]))
             mod_map[name.capitalize()] = getattr(mod, name.capitalize())
-            # mod_objs.append()
     return mod_map
 
 

@@ -18,7 +18,5 @@ class Map(UserBehavior):
     def updata_map(self):
         cord = {"latitude":39.9040300, "longitude":116.4075260}
         r = self._post(config.Api.map,cord)
-        # print(r.text)
 
-# Client.task_set = Signin
 
